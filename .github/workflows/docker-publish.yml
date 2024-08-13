@@ -97,7 +97,7 @@ jobs:
           provenance: mode=max
           platforms: linux/amd64,linux/arm64
           annotations: ${{ steps.meta.outputs.annotations }}
-          file: '{context}/packages/server/Dockerfile'
+          file: '${{ github.workspace }}/packages/server/Dockerfile'
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
