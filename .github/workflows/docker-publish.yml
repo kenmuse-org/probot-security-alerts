@@ -6,9 +6,15 @@ name: Docker
 # documentation.
 
 on:
-  workflow_dispatch:
-  push:
+  # schedule:
+  #   - cron: '25 19 * * *'
+  # push:
+  #   branches: [ "main" ]
+  #   # Publish semver tags as releases.
+  #   tags: [ 'v*.*.*' ]
+  pull_request:
     branches: [ "kenmuse/vNext" ]
+  workflow_dispatch:
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -45,9 +51,9 @@ jobs:
 
       - name: Extract versions
         run: |
-          NODE_VERSION=$(cat .devcontainer/devcontainer.json | sed 's/^ *\/\/.*//'  | jq -r '.features."ghcr.io/devcontainers/features/node:1".version)
-          NODE_MAJOR=$(cat .devcontainer/devcontainer.json | sed 's/^ *\/\/.*//'  | jq -r '.features."ghcr.io/devcontainers/features/node:1".version |  split(".") | map(tonumber) | .[0]')
-          PACKAGE_VERSION=$(cat package.json | jq -r ".version")
+          NODE_VERSION=$(cat .devcontainer/devcontainer.json | sed 's/^ *\/\/.*//'  | jq -r '.features."ghcr.io/devcontainers/features/node:1".version' )
+          NODE_MAJOR=$(cat .devcontainer/devcontainer.json | sed 's/^ *\/\/.*//'  | jq -r '.features."ghcr.io/devcontainers/features/node:1".version | split(".") | map(tonumber) | .[0]')
+          PACKAGE_VERSION=$(cat package.json | jq -r '.version')
           echo "NODE_VERSION=$(NODE_VERSION)" >> $GITHUB_ENV
           echo "NODE_MAJOR=$(NODE_MAJOR)" >> $GITHUB_ENV
           echo "PACKAGE_VERSION=$(PACKAGE_VERSION)" >> $GITHUB_ENV
