@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.4
 
 ARG NODE_VERSION=20
-ARG OS_BASE=alpine3.18
+ARG OS_BASE=alpine3.20
 ARG APP_ROOT=/opt/probot
 
 FROM node:${NODE_VERSION}-${OS_BASE} as base
