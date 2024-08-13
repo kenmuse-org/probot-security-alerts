@@ -51,9 +51,9 @@ jobs:
 
       - name: Extract versions
         run: |
-          NODE_VERSION=$(cat .devcontainer/devcontainer.json | sed 's/^ *\/\/.*//'  | jq -r '.features."ghcr.io/devcontainers/features/node:1".version' )
-          NODE_MAJOR=$(cat .devcontainer/devcontainer.json | sed 's/^ *\/\/.*//'  | jq -r '.features."ghcr.io/devcontainers/features/node:1".version | split(".") | map(tonumber) | .[0]')
-          PACKAGE_VERSION=$(cat package.json | jq -r '.version')
+          export NODE_VERSION=$(cat .devcontainer/devcontainer.json | sed 's/^ *\/\/.*//'  | jq -r '.features."ghcr.io/devcontainers/features/node:1".version' )
+          export NODE_MAJOR=$(cat .devcontainer/devcontainer.json | sed 's/^ *\/\/.*//'  | jq -r '.features."ghcr.io/devcontainers/features/node:1".version | split(".") | map(tonumber) | .[0]')
+          export PACKAGE_VERSION=$(cat package.json | jq -r '.version')
           echo "NODE_VERSION=$(NODE_VERSION)" >> $GITHUB_ENV
           echo "NODE_MAJOR=$(NODE_MAJOR)" >> $GITHUB_ENV
           echo "PACKAGE_VERSION=$(PACKAGE_VERSION)" >> $GITHUB_ENV
